@@ -1,0 +1,68 @@
+body{
+    background-color: #E6EEF2;
+}
+
+.cuerpo{
+    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    background-color: white;
+    border-radius: 40px;
+    max-width: 900px;
+}
+
+.imagenEncabezado{
+    margin-top: 5%;
+    margin-bottom: 2%;
+    width: 80%;
+}
+
+.lineaAzul{
+    height:10px; 
+    color:#5990A5;
+    background-color:#5990A5; 
+    width:80%; 
+}
+
+.detalleEvento{
+    margin-left: 5%
+}
+
+.elmentoFormularioTitulo{
+    font-weight: bold;
+    font-size: large;
+    margin-bottom: 5px;
+}
+
+.asterisc {
+    color: red;
+    font-size: larger;
+}
+
+.elmentoFormularioinput{
+    width: 90%;
+    margin-top: 0px;
+    height: 40px;
+    background-color: #F7F7F7;
+    border: 1px solid #c4c4c4;
+    border-radius: 0;
+    box-shadow: none;
+    color: #787878;
+}
+
+.botonRegistrarse{
+    background: #333;
+    border: 0;
+    color: #f7f7f7;
+    height: 50px;
+    margin-left: 5%;
+    margin-top: 2%;
+    font-size: 20px;
+    margin-bottom: 5%;
+}
+
+.iconColor{
+    width: 20px;
+}
