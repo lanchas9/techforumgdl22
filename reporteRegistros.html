@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tech Forum GDL´22</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body style="font-family:'Avenir',sans-serif;" onload="llenaDatos()">
+      <div class="cuerpo">  
+        <div style="text-align: center;" class="encabezado">
+            <img src="img/header2.jpg" class="imagenEncabezado"/>
+            <br>
+            <hr class="lineaAzul"/>
+        
+          
+    <p id="contador" class="texto">Reporte Portal: Registros Totales = </p>
+    <div class="espaciador"></div>
+    <div id="lista"></div>
+    <div class="espaciador">
+        <img src="assets/img/logos.png" alt="" class="iconoLogos">
+        <!-- <img src="assets/img/lenovo.png" alt="" class="iconoLogo">
+        <img src="assets/img/windows11.png" alt="" class="iconoLogo">
+        <img src="assets/img/intel.png" alt="" class="iconoLogo"> -->
+    </div>
+    </div>
+</div>
+    
+    <!-- <div class="final"><br></div> -->
+    <script>
+        let urlServer = "https://mosaico.app:4000/lenovo/"
+    async function llenaDatos(){
+        
+        let datosRegistros
+                    try{ 
+                            let datos = await fetch(urlServer + "GDLdameRegistrosPorDia") 
+                            let json = await datos. json()
+
+                            if (json.statusCode = 200 ){ 
+                                    let temp = json.message
+                                    datosRegistros = temp
+                            }
+                    }catch(error){
+                        console.log({error})
+                    }
+
+        let listaContactos = document.createElement("ul")
+        let contador = 0
+        datosRegistros.forEach(element => {
+            contador = contador + element.numRegistros
+            let renglon = document.createElement("li")
+            let str = element.numRegistros == 1 ? " invitado registrado" : " invitados registrados"    
+            let fechaTexto = ""
+            switch (element.fechaRegistro) {
+                case "23/09/2022":
+                    fechaTexto = "Viernes 27 de Septiembre"
+                    break;
+                case "24/09/2022":
+                    fechaTexto = "Sábado 24 de Septiembre"
+                    break;
+                case "25/09/2022":
+                    fechaTexto = "Domingo 25 de Septiembre"
+                    break;
+                case "26/09/2022":
+                    fechaTexto = "Lunes 26 de Septiembre"
+                    break;
+                case "27/09/2022":
+                    fechaTexto = "Martes 27 de Septiembre"
+                    break;
+                case "28/09/2022":
+                    fechaTexto = "Miércoles 28 de Septiembre"
+                    break;
+                case "29/09/2022":
+                    fechaTexto = "Jueves 29 de Septiembre"
+                    break;
+                case "30/09/2022":
+                    fechaTexto = "Viernes 30 de Septiembre"
+                    break;
+                case "01/10/2022":
+                    fechaTexto = "Sábado 1 de Octubre"
+                    break;
+                case "02/10/2022":
+                    fechaTexto = "Domingo 2 de Octubre"
+                    break;
+                case "03/10/2022":
+                    fechaTexto = "Lunes 3 de Octubre"
+                    break;
+                case "04/10/2022":
+                    fechaTexto = "Martes 4 de Octubre"
+                    break;
+                case "05/10/2022":
+                    fechaTexto = "Miércoles 5 de Octubre"
+                    break;
+                case "06/10/2022":
+                    fechaTexto = "Jueves 6 de Octubre"
+                    break;
+                default:
+                    break;
+            }
+
+            renglon.innerHTML = "<B>" + fechaTexto + "</B>  ➡  " + element.numRegistros + str + " 📄"
+            renglon.className = "textoExplicacion"
+            // renglon.onclick = verDetalle(element);
+            renglon.addEventListener('click', verDetalleBind.bind(this,element))
+            listaContactos.appendChild(renglon)
+        });
+        let totalRegistros = document.getElementById("contador").innerHTML = "Reporte Portal: Registros Totales = " + contador + " personas" 
+        let padreLista = document.getElementById("lista")
+        padreLista.innerHTML = ""
+        padreLista.appendChild(listaContactos)
+    }
+
+   async function verDetalleBind(element){
+        let datosRegistros
+        try{ 
+                let datos = await fetch(urlServer + "MTYdameRegistrosPorDia?diaEspecifico=" + element.fechaRegistro) 
+                let json = await datos. json()
+
+                if (json.statusCode = 200 ){ 
+                        let temp = json.message
+                        datosRegistros = temp
+                }
+        }catch(error){
+            console.log({error})
+        }
+
+        let listaContactos = document.createElement("ul")
+        datosRegistros.forEach(element => {
+            let renglon = document.createElement("li")
+            renglon.innerHTML = "<B>" + element.nombreCompleto + "</B>   ➡  " + element.nombreEmpresa 
+            renglon.className = "textoExplicacion"
+            // renglon.onclick = verDetalle(element);
+            // renglon.addEventListener('click', verDetalleBind.bind(this,element))
+            listaContactos.appendChild(renglon)
+        });
+
+        let padreLista = document.getElementById("lista")
+        padreLista.innerHTML = ""
+        padreLista.appendChild(listaContactos)
+
+        let regresar = document.createElement("button")
+                regresar.innerHTML = "Regresar"
+                regresar.className = "boton"
+                regresar.onclick = function(){
+                    llenaDatos()
+                }
+                padreLista.appendChild(regresar)
+    }
+
+    </script>
+</body>
+</html>
